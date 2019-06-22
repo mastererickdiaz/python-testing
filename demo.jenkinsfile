@@ -65,6 +65,9 @@ pipeline {
       }
       steps {
         sh "echo hare_deploy"
+        build job: "mydemo", parameters: [
+          [$class: 'StringParameterValue', name: "SLACK", value: '#deploys']
+        ]
       }
     }
 
