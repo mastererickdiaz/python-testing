@@ -65,6 +65,9 @@ pipeline {
       }
       steps {
         sh "echo hare_deploy"
+        sh "zip -r ${env.ARTIFACT} 4-fake-delegation/"
+        archiveArtifacts artifacts: "${env.ARTIFACT}", onlyIfSuccessful: true
+        sh "rm -rf ${env.ARTIFACT}"
         build job: "mydemo", parameters: [
           [$class: 'StringParameterValue', name: "SLACK", value: '#deploys']
         ]
