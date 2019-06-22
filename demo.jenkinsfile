@@ -54,6 +54,7 @@ pipeline {
           def ID = sh(returnStdout: true, script: "./ami_id.sh ${env.BUILD_NUMBER}").trim()
           sh "./build_ami.sh ${ID}"
         }
+        sh "zip -r ${env.ARTIFACT} 4-fake-delegation/"
       }
     }
     
@@ -65,14 +66,29 @@ pipeline {
       }
       steps {
         sh "echo hare_deploy"
-        sh "zip -r ${env.ARTIFACT} 4-fake-delegation/"
-        archiveArtifacts artifacts: "${env.ARTIFACT}", onlyIfSuccessful: true
-        sh "rm -rf ${env.ARTIFACT}"
         build job: "mydemo", parameters: [
           [$class: 'StringParameterValue', name: "SLACK", value: '#deploys']
         ]
       }
     }
+  }
 
+  post {
+    always {
+      archiveArtifacts artifacts: "${env.ARTIFACT}", onlyIfSuccessful: true
+      sh "rm -f ${ARTIFACT}"
+      echo "Job has finished"
+    }
+    success {
+      slackSendMessage "good"
+    }
+    failure {
+      slackSendMessage "danger"
+    }
   }
 }
+
+def slackSendMessage(String color){
+  slackSend channel: "${params.SLACK_CHANNEL}", color: color, failOnError: true, message: "$SLACK_MESSAGE"
+}
+
