@@ -62,6 +62,16 @@ pipeline {
         sh "zip -r ${env.ARTIFACT} 4-fake-delegation/"
       }
     }
+
+    stage ("Ask") {
+      input {
+        message: "Are you sure?"
+        ok "Yes"
+      }
+      steps {
+        sh "echo ok_seguimos"
+      }
+    }
     
     stage ('Deploy') {
       when {
