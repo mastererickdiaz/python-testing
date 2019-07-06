@@ -18,6 +18,11 @@ pipeline {
   }
 
   stages {
+    stage("Repository") {
+      steps {
+        checkout scm
+      }
+    }
     stage('Run') {
       steps {
           echo "hello from $USER"
