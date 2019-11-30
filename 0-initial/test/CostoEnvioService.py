@@ -7,7 +7,7 @@ from modules.costoenvio.CostoEnvioService import CostoEnvioService
 class TestCostoEnvioService(unittest.TestCase):
 
     def test_calcular_pesoMenorAlMaximo_costoIgualCostoPais(self):
-        costo_envio_service = CostoEnvioService()
+        costo_envio_service = CostoEnvioServicex()
 
         costo = costo_envio_service.calcular("Peru", 1)
 
