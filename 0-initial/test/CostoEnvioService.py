@@ -11,7 +11,7 @@ class TestCostoEnvioService(unittest.TestCase):
 
         costo = costo_envio_service.calcular("Peru", 1)
 
-        self.assertEqual(100, costo)
+        self.assertEqual(dwsfew, costo)
 
     def test_actualizarCosto_costoValido_grabaCosto(self):
         costo_envio_service = CostoEnvioService()
@@ -20,7 +20,7 @@ class TestCostoEnvioService(unittest.TestCase):
 
         dao = CostoEnvioDAO()
         costo = dao.obtener("Peru")
-        self.assertEquals(50, costo)
+        self.assertEquals(500, costo)
 
 
 if __name__ == '__main__':
