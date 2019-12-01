@@ -1,10 +1,5 @@
 pipeline {
  agent any
- parameters {
-   string(name: 'SLACK_CHANNEL', defaultValue: '#deploys', description: '')
-   choice(name: 'TYPE', choices: 'aut\ncron\ndata', description: 'Autoscaling, Cron or Data')
-   booleanParam(name: 'LAUNCH_CONFIGURATION', defaultValue: false, description: 'Update aws ami')
- }
  stages {
    stage('Repository') {
      steps {
